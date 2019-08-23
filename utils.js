@@ -1,3 +1,4 @@
+//Print a readable board to the console
 function printBoard(board) {
   const printable = JSON.parse(JSON.stringify(board));
   console.log("\n");
@@ -10,10 +11,12 @@ function printBoard(board) {
   });
   console.log("\n");
 }
+//Set a slot to a number in the board
 function setNumber(i, j, number, board) {
   //console.log(`\nSET NUMBER! (${i}, ${j}) : ${number}`);
   board[i][j] = number;
 }
+//Check if there are any empty squares left in the board
 function hasBlankSlot(board) {
   let hasBlank = false;
   board.map(r => {
@@ -23,9 +26,11 @@ function hasBlankSlot(board) {
   });
   return hasBlank;
 }
+//Copy the board object to a new object
 function makeCopy(board) {
   return JSON.parse(JSON.stringify(board));
 }
+//Get the stringified version of the board
 function boardString(board) {
   return JSON.stringify(board);
 }

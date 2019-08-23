@@ -7,8 +7,7 @@ const {
 } = require("./utils");
 
 //Puzzle boards should be of the following form. Empty slots are zeros
-let board = [[], [], [], [], [], [], [], [], []];
-board = require("./puzzles/everest");
+//let board = [[], [], [], [], [], [], [], [], []];
 
 function solve(board, pickFirstOfTwo = false, pickSecondOfTwo = false) {
   for (let i = 0; i < board.length; i++) {
@@ -62,32 +61,6 @@ function solve(board, pickFirstOfTwo = false, pickSecondOfTwo = false) {
   return true;
 }
 
-// let count = 1;
-// let prevBoard = JSON.stringify(board);
-// let haveYetToPickFirst = true;
-// let haveYetToPickSecond = true;
-// let freezeBoard = {};
-// while (hasBlankSlot(board) && count < 41) {
-//   console.log(`\n\nROUND ${count}\n\n`);
-//   solve(board);
-//   if (JSON.stringify(board) == prevBoard) {
-//     console.log(`\nBoard is the Same after round ${count}`);
-//     if (haveYetToPickFirst) {
-//       console.log(`\nPicking First`);
-//       freezeBoard = makeCopy(board);
-//       solve(board, haveYetToPickFirst);
-//       haveYetToPickFirst = false;
-//     } else if (haveYetToPickSecond) {
-//       console.log(`\nPicking Second`);
-//       board = makeCopy(freezeBoard);
-//       solve(board, haveYetToPickFirst, haveYetToPickSecond);
-//       haveYetToPickSecond = false;
-//     } else break;
-//   }
-//   prevBoard = JSON.stringify(board);
-//   count++;
-// }
-
 function solvingTree(board, count = 1, pickFirst = false, pickSecond = false) {
   if (!hasBlankSlot(board)) {
     printBoard(board);
@@ -123,16 +96,6 @@ function solvingTree(board, count = 1, pickFirst = false, pickSecond = false) {
   }
 }
 
-const start = new Date();
-let hrstart = process.hrtime();
-console.log(`Started on ${start}`);
-const wasSolved = solvingTree(board);
-console.log(`Was the puzzle solved? ${wasSolved ? "Yes" : "No"}`);
-const end = new Date() - start;
-const hrend = process.hrtime(hrstart);
-console.info("Execution time: %dms", end);
-console.info("Execution time (hr): %ds %dms", hrend[0], hrend[1] / 1000000);
-
 function getMissingNumbers(list) {
   const missing = [];
   for (let n = 1; n < 10; n++) if (list.indexOf(n) == -1) missing.push(n);
@@ -152,3 +115,5 @@ function getColumnMissingNumbers(j, board) {
   const column = board.map(row => row[j]);
   return getMissingNumbers(column);
 }
+
+module.exports = solvingTree;
