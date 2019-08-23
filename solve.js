@@ -1,3 +1,11 @@
+const {
+  printBoard,
+  setNumber,
+  hasBlankSlot,
+  makeCopy,
+  boardString
+} = require("./utils");
+
 //Puzzle boards should be of the following form. Empty slots are zeros
 let board = [[], [], [], [], [], [], [], [], []];
 board = require("./puzzles/everest");
@@ -125,27 +133,6 @@ const hrend = process.hrtime(hrstart);
 console.info("Execution time: %dms", end);
 console.info("Execution time (hr): %ds %dms", hrend[0], hrend[1] / 1000000);
 
-function makeCopy(board) {
-  return JSON.parse(JSON.stringify(board));
-}
-function boardString(board) {
-  return JSON.stringify(board);
-}
-function hasBlankSlot(board) {
-  let hasBlank = false;
-  board.map(r => {
-    r.map(c => {
-      if (!c) hasBlank = true;
-    });
-  });
-  return hasBlank;
-}
-
-function setNumber(i, j, number, board) {
-  //console.log(`\nSET NUMBER! (${i}, ${j}) : ${number}`);
-  board[i][j] = number;
-  //printBoard(board);
-}
 function getMissingNumbers(list) {
   const missing = [];
   for (let n = 1; n < 10; n++) if (list.indexOf(n) == -1) missing.push(n);
@@ -164,17 +151,4 @@ function getSquareMissingNumbers(squareI, squareJ, board) {
 function getColumnMissingNumbers(j, board) {
   const column = board.map(row => row[j]);
   return getMissingNumbers(column);
-}
-
-function printBoard(board) {
-  const printable = JSON.parse(JSON.stringify(board));
-  console.log("\n");
-  printable.map((row, i) => {
-    row.splice(3, 0, "|");
-    row.splice(7, 0, "|");
-    console.log(row.join(" "));
-    if ((i + 1) % 3 == 0 && i && i != printable.length - 1)
-      console.log(row.map(c => "-").join(" "));
-  });
-  console.log("\n");
 }
